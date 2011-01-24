@@ -16,7 +16,7 @@ class TableHelper extends AppHelper
         }
         else
         {
-            // Field has model names (i.e. 'Property.Address.addres1')
+            // Field has model names (i.e. 'Property.Address.address1')
             $modelsAndFieldsLastItemIndex = sizeof($modelsAndFields) - 1;
             
             $entryModelNames = array_slice($modelsAndFields, 0, $modelsAndFieldsLastItemIndex );
