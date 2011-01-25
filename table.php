@@ -39,38 +39,37 @@ class TableHelper extends AppHelper
     {
         if (empty($tableEntries))
         {
-            echo $noItemsMessage;
-            return;
+            return $noItemsMessage;
         }
         
         // Create header
-        echo "<table>";
-        echo "<tr>";
+        $output = "<table>";
+        $output .= "<tr>";
         foreach($tableDisplayFields as $tableDisplayFieldName => $tableDisplayField)
         {
-            echo "<th>" . $tableDisplayFieldName . "</th>";
+            $output .= "<th>" . $tableDisplayFieldName . "</th>";
         }
         
         $hasActions = (!empty($tableActions));
         if ($hasActions)
         {
-            echo "<th>Actions</th>";
+            $output .= "<th>Actions</th>";
         }
-        echo "</tr>";
+        $output .= "</tr>";
         
         // Create entries
         foreach ($tableEntries as $entry)
         {
-            echo "<tr>";
+            $output .= "<tr>";
             foreach($tableDisplayFields as $tableDisplayFieldName => $tableDisplayField)
             {
                 $fieldToDisplay = $this->_getField($tableModelName, $entry, $tableDisplayField);
-                echo "<td>" . $fieldToDisplay . "</td>";
+                $output .= "<td>" . $fieldToDisplay . "</td>";
             }
             
             if ($hasActions)
             {
-                echo "<td>";
+                $output .= "<td>";
                 foreach ($tableActions as $tableActionKey => $tableActionValue)
                 {
                     list($actionName, $actionUrlPrefix,$actionUrlFieldName)  =
@@ -86,15 +85,17 @@ class TableHelper extends AppHelper
                                                                      $entry,
                                                                      $actionUrlFieldName);
                     
-                    echo $this->Html->link($actionName, $actionUrl, array(), $actionConfirm);
-                    echo " ";
+                    $output .= $this->Html->link($actionName, $actionUrl, array(), $actionConfirm);
+                    $output .= " ";
                     
                 }
-                echo "</td>";
+                $output .= "</td>";
             }
-            echo "</tr>";
+            $output .= "</tr>";
         }
-        echo "</table>";
+        $output .= "</table>";
+        
+        return $output;
     }
 }
 
